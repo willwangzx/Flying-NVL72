@@ -1,6 +1,6 @@
 # Detailed engineering calculations
 
-Baseline: Concept C, 3 November 2026. Decimal kB/GB/TB/PB and SI units unless stated otherwise. Values are rounded here; JSON outputs retain numerical precision. All results are first-order sizing, not measured performance. The executable model is [calculate.py](../analysis/calculate.py); inputs are [inputs.json](../analysis/inputs.json).
+Baseline: Concept D, 4 November 2026. The nominal compute power/thermal sizing is unchanged; propulsion mass and performance are revised. Decimal kB/GB/TB/PB and SI units unless stated otherwise. Values are rounded here; JSON outputs retain numerical precision. All results are first-order sizing, not measured performance. The executable model is [calculate.py](../analysis/calculate.py); inputs are [inputs.json](../analysis/inputs.json).
 
 ## 1. Orbit and operating boundary
 
@@ -38,7 +38,7 @@ I_branch = 2,400/8 = 300 A for eight equal branches
 
 Each independently isolatable 150 kW converter train needs about 3,000 A output capability at 50 V. A/B redundancy cannot be claimed until bus faults, cross-strapping, startup and common-cause failures are addressed. No assumption of negligible conductor/contact losses is permissible: I²R and transient impedance must be included in the actual design.
 
-The 5 kW electric thruster is outside this nominal continuous allocation. Reduce compute input by at least 10 kW during burns and verify full spacecraft transients. Safe mode has a separate ≤8 kW target, not the full-load 13 kW overhead applied unchanged.
+The ion system is off in this nominal case. With two operating heads, add 2 × 6.9/(.95 × .97) + .30 = 15.2756 kW at the bus. At 105 kW compute input, total bus is 137.6506 kW and the conservative full-orbit thermal peak is 161.1430 kW. The 120 kW compute + ion case also closes the scalar budgets (153.2756 kW nominal bus, 179.4347 kW heat), but does not preserve the original bus envelope. Use the 105 kW scheduling target pending integration. Both cases are included in scenario outputs. See [the ion study](ION-PROPULSION.md). Safe mode has a separate ≤8 kW target, not the full-load 13 kW overhead applied unchanged.
 
 ## 3. Solar generation and orbital energy closure
 
@@ -174,20 +174,20 @@ The complete itemized budget is [mass-budget.csv](../analysis/results/mass-budge
 Solar: 1100 × 2.5 = 2,750 kg
 Radiator/wing hardware: 700 × 6 = 4,200 kg
 Battery: 200/.12 = 1,666.67 kg
-Other fixed allocations: 8,900 kg
-Dry subtotal = 17,516.67 kg
-Dry growth = .20 × 17,516.67 = 3,503.33 kg
+Other fixed allocations: 9,150 kg
+Dry subtotal = 17,766.67 kg
+Dry growth = .20 × 17,766.67 = 3,553.33 kg
 Propellant = 500 xenon + 2200 chemical = 2,700 kg
-Launch total = 23,720 kg
+Launch total = 24,020 kg
 ```
 
 The fixed subtotal includes custom compute 2,000 kg, vented frame/MMOD 1,500 kg, shielding 1,600 kg and all remaining service allocations. The radiator density includes panels/deployment hardware; the separate 1,200 kg thermal allocation includes pumps, exchangers, fluid and extra cold plates. Actual equipment boundaries must prevent omission or double counting.
 
-Removing 100 m² at 6 kg/m² saves 600 kg dry and 720 kg after 20% growth. No savings from new lasers are credited without a supplier interface/mass budget.
+The earlier C revision removed 100 m² at 6 kg/m², saving 600 kg dry and 720 kg after 20% growth. Concept D adds 250 kg dry propulsion integration and 50 kg growth, raising the C launch allocation from 23.72 to 24.02 t. No savings from new lasers are credited without a supplier interface/mass budget.
 
 ```text
-6 g axial load = 23720 × 9.80665 × 6 = 1.3957 MN
-2 g lateral load = 0.4652 MN
+6 g axial load = 24020 × 9.80665 × 6 = 1.4133 MN
+2 g lateral load = 0.4711 MN
 ```
 
 These are separate provisional limit-load cases; no load combination, stiffness, stress concentration, buckling, modal or ultimate-load calculation has been performed. They are not current Starship requirements.
@@ -211,32 +211,19 @@ No launchable packing claim follows from a bounding cylinder alone. Check tapere
 
 ## 10. Propulsion, drag and disposal
 
-Using the ideal rocket equation and a sequence of xenon consumption followed by chemical disposal:
+The complete revision is in [ION-PROPULSION.md](ION-PROPULSION.md), with reproducible [outputs](../analysis/results/ion-propulsion.json). Four gridded-ion heads are installed; two operate. The historical NASA prototype reference is 6.9 kW, 0.237 N and 4,190 s per head. Front-end conversion, PPUs, controls, gimbals, feed hardware and LEO integration are independent assumptions.
 
 ```text
-Δv_electric = 9.80665 × 1600 × ln(23720/23220) ≈ 334 m/s
-Δv_chemical = 9.80665 × 230 × ln(23220/21020) ≈ 225 m/s
+Δv_electric = 9.80665 × 4190 × ln(24020/23520) = 864.354 m/s
+Δv_chemical = 9.80665 × 230 × ln(23520/21320) = 221.505 m/s
+F_drag = .5 × 1e−12 × 2.2 × 700 × 7561.733² = .044028 N
+Δv_drag/year = F_drag/24020 × 31557600 = 57.8448 m/s
+Three years at fixed density/area/mass = 173.5344 m/s
 ```
 
-Tank residuals, usable fraction, thruster performance at operating points, finite-burn loss, attitude expenditures and leak margins are omitted. Isp alone does not establish thrust or burn duration at 5 kW.
+This is constant-density screening, not an atmosphere forecast. Tank residuals, density changes, thrust geometry, lifetime, finite burn and trajectories remain open. The previous C mass gave 58.5764 m/s/year; D is lower because its mass is 300 kg higher. The old pre-publication value of 67 m/s/year was an arithmetic error, not an atmospheric model update.
 
-```text
-F_drag = 0.5 ρ Cd A v²
-Δv_year ≈ F_drag/m × seconds_per_year
-ρ = 1e−12 kg/m³; Cd = 2.2; A_projected = 700 m²
-→ approximately 59 m/s/year using v ≈ 7.562 km/s and 23.72 t
-```
-
-The earlier HTML narrative rounded this to 67 m/s/year; the reproducible script exposes and corrects that arithmetic in the repository edition. This is an illustrative constant-density calculation, not an atmosphere forecast. Tenfold density means tenfold demand under otherwise identical assumptions. A 250 m/s drag allocation plus 40 m/s maneuver allocation leaves approximately 44 m/s ideal contingency; it does not prove a three-year lifetime.
-
-For an impulsive reduction from a circular 600 km orbit to 50 km perigee:
-
-```text
-r_a = R_E + 600 km; r_p = R_E + 50 km; a = (r_a+r_p)/2
-Δv = √(μ/r_a) − √[μ(2/r_a − 1/a)] ≈ 157 m/s
-```
-
-Reserve about 175 m/s for disposal plus 25 m/s operational allowance as planning targets. Disposal corridor, timing, finite burn, break-up, surviving fragments and authorization remain unverified. Electrical power cannot be assumed available after a major spacecraft failure.
+A 600 km circular to 50 km perigee impulsive maneuver still requires about 156.905 m/s using vis-viva. It cannot be used as a low-thrust spiral result. Retain approximately 175 m/s disposal plus 25 m/s operational allowance as planning targets for chemical propulsion; actual corridor, finite burn, failure recovery and reentry risk need analysis.
 
 ## 11. Optical relay and data budget
 
@@ -270,3 +257,7 @@ This establishes only geometric possibility, not a peer at that location or a su
 Capacity margin means capacity/demand − 1, not unused capacity/capacity. Power reserve is already inside demand; dry-mass growth is separate. Do not add these percentages as if they represented the same uncertainty.
 
 The 20% mass growth is an allocation, not a probabilistic confidence bound. No Monte Carlo reliability claim, full thermal model, detailed finite-element model, radiation transport, manufacturer CAD or actual flight qualification data is included.
+
+## 13. Passive transport trade
+
+See [PASSIVE-THERMAL.md](PASSIVE-THERMAL.md). The radiator heat balance remains the same if the same surface temperature and environment are achieved. Passive circulation requires a capillary-driven two-phase network; the current primary pressure-drop assumption cannot be reused without redesign. No pump-power or mass reduction is applied to baseline results.

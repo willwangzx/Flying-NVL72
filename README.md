@@ -8,9 +8,9 @@ A preliminary spacecraft concept for a **custom, unpressurized, fully cold-plate
 
 Download the repository and open **[model/nvl72-orbital-compute.html](model/nvl72-orbital-compute.html)** in a modern browser. It is one self-contained HTML file and works offline. GitHub's file view shows source; it does not execute the model. No hosted website is configured by this publication.
 
-The model includes seven views: core, exploded assembly, compute rack, compute tray, radiator panel, deployed spacecraft and stowed spacecraft. Rotate, pan, zoom, select components, inspect dimensions, isolate assemblies and export visible geometry as OBJ. The page also contains power/thermal controls, a relay calculator, sources and qualification gates.
+The model includes twelve views: core, exploded assembly, compute rack, compute tray, radiator panel, deployed spacecraft, stowed spacecraft, propulsion bay, ion-engine cutaway, thermal module, moving radiator hinge and a separate passive-loop concept. Rotate, pan, zoom, select components, inspect dimensions, isolate assemblies and export visible geometry as OBJ. The page also contains power/thermal controls, a relay calculator, sources and qualification gates.
 
-## Concept C baseline
+## Concept D baseline
 
 | Quantity | Allocation / calculated result |
 |---|---:|
@@ -23,19 +23,25 @@ The model includes seven views: core, exploded assembly, compute rack, compute t
 | Primary coolant | 30°C supply / 40°C return; conditional on component limits |
 | Radiator | 700 m², one emitting face, 26°C mean skin |
 | Peak heat / net rejection | 161.6 / 207.1 kW at 80 W/m² absorbed environment |
-| Launch mass allocation | 23.72 t including dry growth and propellant |
+| Launch mass allocation | 24.02 t including dry growth and propellant |
 | Stowed allocation | Ø7.4 × 10.5 m; current launcher compatibility unverified |
 | Deployed span | Approximately 110 × 86 m |
 | Optical relay | Two proposed Mini Lasers; one 25 Gb/s-class active link counted |
 | Useful average throughput | 18 Gb/s **only if** 25 Gb/s allocation, 80% efficiency and 90% usable service are supplied |
 
+The ion arrangement has four gridded-ion heads, two active, using a historical NASA NEXT prototype reference point. Pair thrust is 0.474 N; estimated spacecraft input is 15.28 kW. A 105 kW compute cap during burns preserves the prior nominal bus envelope. Chemical propulsion remains for urgent maneuvers and disposal.
+
+Passive thermal circulation is an additional trade study, not an installed baseline change. Heat pipes and capillary loops can operate without mechanical circulation pumps, but a ~160 kW, long-line system needs a different hydraulic design and qualification. The model exposes a separate passive-loop schematic; no mass or power saving is credited.
+
 ## Engineering package
 
 - [Detailed calculations](docs/CALCULATIONS.md): equations, substitutions, units, margins and failure cases.
+- [Ion propulsion study](docs/ION-PROPULSION.md): thrust, duty cycle, bus interfaces, mass allocation and maneuver limits.
+- [Passive thermal study](docs/PASSIVE-THERMAL.md): capillary operation, pressure limits and hybrid alternatives.
 - [System architecture](docs/ARCHITECTURE.md): compute, power, cooling, mechanics, communications and operations.
 - [Engineering constraints](docs/CONSTRAINTS.md): unresolved interfaces, physical limits and evidence required before flight.
 - [Sources](docs/SOURCES.md): published facts separated from original allocations.
-- [Design history](docs/DESIGN-HISTORY.md): pressurized Concept A → custom vacuum Concept B → relay/warmer-radiator Concept C.
+- [Design history](docs/DESIGN-HISTORY.md): pressurized Concept A → custom vacuum Concept B → relay/warmer-radiator Concept D.
 - [Editable inputs](analysis/inputs.json), [calculation code](analysis/calculate.py), [baseline results](analysis/results/baseline.json), [scenario results](analysis/results/scenarios.json), [mass budget CSV](analysis/results/mass-budget.csv).
 - [Validation scope](docs/VALIDATION.md): what automated checks do and do not establish.
 
@@ -56,6 +62,8 @@ npm test
 ```
 
 Rendered inspection images are written under `test-output/` and are not committed. This is a DOM/canvas harness, not a real browser end-to-end test. The HTML itself needs neither Node nor Python.
+
+The [ion calculation outputs](analysis/results/ion-propulsion.json) distinguish firing time from calendar time and include drag.
 
 The Python model recalculates mass for a newly sized design. HTML sliders change operating scenarios while retaining the baseline geometry and mass. Failure scenarios deliberately omit rescaled mass/trajectory outputs because an electrically failed wing does not disappear from the launch mass.
 

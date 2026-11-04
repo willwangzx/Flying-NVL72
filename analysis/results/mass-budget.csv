@@ -6,13 +6,13 @@ power_conditioning,650
 thermal_equipment_fluid,1200
 avionics_optics_cache,450
 attitude_control,350
-propulsion_dry,400
+propulsion_dry,650
 harness_misc,400
 adapter_separation,350
 solar,2750.0
 radiator,4200
 battery,1666.6666666666667
-Dry subtotal,17516.666666666668
-Dry growth,3503.333333333334
+Dry subtotal,17766.666666666668
+Dry growth,3553.333333333334
 Propellant,2700
-Launch total,23720.0
+Launch total,24020.0

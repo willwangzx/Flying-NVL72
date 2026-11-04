@@ -74,7 +74,7 @@ Allocate dual star trackers, GNSS, gyros and a radiation-tolerant controller; fo
 
 At 4.56 μPa, a conservative 1,800 m² projected area has about 0.0082 N incident radiation force before reflection. A 1 m offset gives approximately 0.0082 N·m and 47.5 N·m·s per 96.54-minute orbit. Symmetry helps but does not establish momentum balance. Aerodynamic torque, shadow transitions, cable motion, gimbal motion and slosh remain unresolved.
 
-The 5 kW electric propulsion allocation uses 500 kg xenon at an assumed 1,600 s Isp; a separate chemical system reserves 2,200 kg at 230 s Isp. Public Starlink use of argon does not establish that its propulsion hardware fits this much larger platform. Tank geometry in the model is illustrative; propellant density, pressurant, residuals, materials, engine selection and burn duration are not defined.
+Concept D allocates four gridded-ion heads in diagonal pairs (two active, two spare), using a historical 6.9 kW / 0.237 N / 4,190 s prototype reference per head. Full pair spacecraft input is 15.28 kW after assumed PPU/front-end losses and controls; a 105 kW compute cap during burns preserves the 138 kW nominal envelope. The 500 kg xenon allocation is retained; a separate chemical system reserves 2,200 kg at 230 s Isp. See [the ion study](ION-PROPULSION.md). Public Starlink use of argon does not establish that its propulsion hardware fits this much larger platform. Tank geometry in the model is illustrative; propellant density, pressurant, residuals, materials, engine selection and burn duration are not defined.
 
 ## Communications and data handling
 
@@ -90,7 +90,7 @@ Keep 1 PB usable cache, a 400 GbE-class gateway allocation, resumable transfers,
 |---|---|---|
 | Startup / commissioning | Essential bus, thermal checks, staged workload ramp | No full load before radiator/pump verification |
 | Ordinary science/compute | Schedule jobs inside power, thermal, cache and service limits | Per-device temperature and workload peaks |
-| Electric propulsion burn | Reduce compute input by ≥10 kW | Attitude, optical pointing and power transients |
+| Electric propulsion burn | Cap compute input at 105 kW | Attitude, optical pointing and power transients |
 | One radiator wing lost | Isolate; provisional 100 kW compute cap | Approximately 10% thermal reserve under baseline environment |
 | One solar wing lost | Throttle below energy-only ceiling (~105 kW) | Recharge limit and eclipse season |
 | One battery string lost | Throttle before long eclipse | ~112 kW energy-only ceiling; add operating reserve |
@@ -100,3 +100,7 @@ Keep 1 PB usable cache, a 400 GbE-class gateway allocation, resumable transfers,
 | Safe mode | Compute off, ≤8 kW essential target, warm bypass/freeze protection | Cold survival and independent command access |
 
 These are control requirements, not a flight software implementation. Protection must remain independent of an unresponsive GPU operating system.
+
+## Passive heat-transport alternative
+
+[The passive thermal study](PASSIVE-THERMAL.md) evaluates heat pipes, loop heat pipes and capillary-pumped loops. The separate passive model view illustrates evaporation, vapor transport, condensation and wick-driven liquid return. It is not installed baseline hardware. Retain the pumped cold-plate baseline until heat flux, capillary/permeability limits, long flexible lines, startup and freeze protection are demonstrated. A hybrid with passive local spreading is the first development candidate.

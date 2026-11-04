@@ -42,3 +42,17 @@ Design reference date: 3 November 2026. These public references informed the con
 - **Unverified:** flight reliability, component vacuum/radiation tolerance, complete deployment, optical service access and current launcher fit.
 
 The 2020 Starship guide is historical and cannot establish current cargo-door clearance or payload performance. TBIRD is a historical direct-ground reference, not the Concept C communications system. Public Starlink internal mesh rates must not be substituted for the partner-terminal rating.
+
+## Additional references · 4 November 2026
+
+17. [NASA — NEXT prototype performance, 2008](https://ntrs.nasa.gov/citations/20080012739). Reference operating point: 6.9 kW, 0.237 N, 4,190 s per head. Historical test data, not this spacecraft hardware.
+
+18. [NASA — Electric propulsion principles](https://www.nasa.gov/humans-in-space/the-propulsion-were-supplying-its-electrifying/). Low continuous thrust and the distinction between Hall and gridded-ion acceleration.
+
+19. [NASA — Technology infusion study, NEXT system appendix](https://ntrs.nasa.gov/api/citations/20140017777/downloads/20140017777.pdf). Heritage PPU input-interface context; spacecraft bus adaptation is separately allocated.
+
+20. [NASA — Thermal control](https://www.nasa.gov/smallsat-institute/sst-soa/thermal-control/). Heat-pipe and capillary return principles.
+
+21. [NASA — Investigation of Capillary Limit in a Loop Heat Pipe](https://ntrs.nasa.gov/citations/20020014292). Observed capillary-limit and dryout behavior.
+
+22. [NASA — CAPL-3 flight experiment](https://ntrs.nasa.gov/citations/20030025293). Multiple evaporators and deployable-radiator heritage; historical tested loads are far below this platform.

@@ -11,9 +11,10 @@
 
 - [Concept A detailed pressurized model](../archive/concept-a-pressurized.html): superseded, retained to document the earlier design assumptions.
 - [Concept B vacuum model](../archive/concept-b-vacuum.html): superseded baseline before the Starlink revision.
-- [Current Concept C](../model/nvl72-orbital-compute.html): repository baseline.
+- [Archived Concept C](../archive/concept-c-relay.html): relay/warmer-radiator baseline before detailed ion integration.
+- [Current Concept D](../model/nvl72-orbital-compute.html): detailed propulsion and subsystem views, with a separate passive thermal alternative study.
 
-Archived HTML files contain their original calculations, caveats and assumptions; they were not brought up to current requirements. Do not mix their geometry or budgets with Concept C. They are not separate validated spacecraft designs.
+Archived HTML files contain their original calculations, caveats and assumptions; they were not brought up to current requirements. Do not mix their geometry or budgets with Concept D. They are not separate validated spacecraft designs.
 
 ## C changes with numerical consequences
 
@@ -34,3 +35,11 @@ The analytical-screening table no longer claims a pressure-shell stress calculat
 ## Scope of “all workings”
 
 The repository contains the design artifacts, equations, assumptions, source references, executable sizing code, scenario outputs and meaningful validation harness. It excludes temporary automation/transfer files, private account metadata, unrelated files and one-off text-replacement scripts. No confidential manufacturer data or inferred internal SpaceX design process is represented.
+
+## Concept D · 4 November 2026
+
+- Replace the generic 5 kW electric-thruster placeholder with four gridded-ion heads, two active, using historical NASA NEXT prototype performance as the numerical reference.
+- Include PPU efficiency, an isolated front-end for the 800 V spacecraft bus, feed/control power, useful thrust direction and sunlit availability. Do not equate high ideal Δv with fast maneuvers.
+- Raise propulsion dry allocation by 250 kg and growth by 50 kg: launch mass becomes 24.02 t. Retain 500 kg xenon and 2,200 kg chemical propellant pending mission/lifetime analysis.
+- Add ion-engine cutaway, propulsion-bay, thermal-module, articulated-hinge and passive-loop views: twelve total. Gimbal and hinge motion, neutralizer, grids, PPUs, feed valves, electrical harness and service detail are conceptual geometry.
+- Retain pumped baseline cooling. Add a passive-loop/hybrid trade in response to the question about heat-driven circulation, with capillary-pressure and latent-heat estimates; no unverified pump savings are credited.

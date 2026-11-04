@@ -23,9 +23,14 @@ This register distinguishes arithmetic closure from flight readiness. **All hard
 | C17 | Optical-only recovery depends on accurate pointing | Independent low-rate S-band | Ground support, spectrum authorization, safe-mode link budget and command recovery demonstration |
 | C18 | Launch cylinder arithmetic is not cargo accommodation | Ø7.4 × 10.5 m provisional package | Current launcher ICD, tapered envelope/door/extraction/adapter, separation analysis and 600 km SSO performance |
 | C19 | Stiffness, buckling, acoustics and coupled loads are uncalculated | 6 g axial and 2 g lateral concept cases | FEA, modal test, coupled-loads analysis, joint/fatigue design and launcher-approved test levels |
-| C20 | Drag highly variable; Isp does not establish burn time | 500 kg xenon + 2,200 kg chemical allocation | Atmosphere/attitude ensemble, thruster selection, power/thrust budget, residuals, maneuver and disposal trajectories |
+| C20 | Drag highly variable; usable thrust depends on power, direction and duty | Four gridded-ion heads, two active; 500 kg xenon + 2,200 kg chemical | Atmosphere/attitude ensemble, thruster selection, power/thrust budget, residuals, maneuver and disposal trajectories |
 | C21 | A failed large spacecraft may not dispose itself | Chemical reserve and independent safety controller | Survivability/reentry risk assessment, disposal reliability, autonomous recovery and operational authorization |
 | C22 | No technician can reseat connectors or repair leaks | Protected modular branches and independent controller | Fault tree/FMEA, hardware fault injection, restart/checkpoint policy and acceptable degraded availability |
+
+| C23 | Low thrust may not support urgent maneuvers or rising drag | Pair 0.474 N, assumed sunlit duty/direction | Propagated orbit/attitude/burn schedule, conjunction response and disposal strategy; no use of impulsive Δv as ion-spiral proof |
+| C24 | Ion beam, neutralizer and high voltage affect spacecraft surfaces | Gimbals, separate PPUs and wire plume keep-outs | Supplier plume/divergence, sputtering/contamination, neutralizer life, EMC, isolation and line-of-sight qualification |
+| C25 | Heritage PPU is not an 800 V input device | Two isolated front-end adapters; .97 efficiency assumption | Input range, transient, efficiency, thermal and fault-isolation demonstration with actual hardware |
+| C26 | Capillary circulation can dry out or fail to start despite steady-state arithmetic | Passive alternative view; pumped baseline retained | Real fluid/wick permeability and pressure network, heat-flux/sonic/entrainment limits, microgravity startup and freeze/thaw testing |
 
 ## Numerical operating boundaries
 
@@ -38,6 +43,8 @@ This register distinguishes arithmetic closure from flight readiness. **All hard
 | One solar wing unavailable | 223.5 kW generation | Full-power eclipse cycle is energy-negative |
 | One battery string unavailable | 85.5 kWh deliverable | Full-power 36-minute eclipse fails |
 | 10 Gb/s relay allocation | 77.76 TB/day at .8 efficiency and .9 usable fraction | Lower than prior 121 TB/day direct-ground planning assumption |
+| Ion pair, reference environment | ~0.240 N useful average vs 0.044 N drag | ~34 h elapsed per 1 m/s net increase, under assumed duty/direction |
+| Ion pair, tenfold density | ~0.240 N average vs 0.440 N drag | Cannot balance drag under the assumed schedule |
 | No relay service | Zero egress | Cache eventually fills unless output generation stops |
 | Tenfold density | Tenfold illustrative drag demand | Three-year allocation may fail; propagate actual conditions |
 

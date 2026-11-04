@@ -6,6 +6,7 @@
     "zero_beta_max_eclipse_min": 35.4266152514903
   },
   "power": {
+    "ion_bus_kw": 0,
     "nominal_bus_kw": 138.0,
     "reserved_bus_kw": 151.8,
     "converter_loss_kw": 5.0,
@@ -48,27 +49,27 @@
       "thermal_equipment_fluid": 1200,
       "avionics_optics_cache": 450,
       "attitude_control": 350,
-      "propulsion_dry": 400,
+      "propulsion_dry": 650,
       "harness_misc": 400,
       "adapter_separation": 350,
       "solar": 2750.0,
       "radiator": 4200,
       "battery": 1666.6666666666667
     },
-    "dry_kg": 17516.666666666668,
-    "growth_kg": 3503.333333333334,
-    "wet_kg": 23720.0
+    "dry_kg": 17766.666666666668,
+    "growth_kg": 3553.333333333334,
+    "wet_kg": 24020.0
   },
   "propulsion": {
-    "electric_dv_m_s": 334.2827753625656,
-    "chemical_dv_after_xenon_m_s": 224.5145286251503,
-    "drag_m_s_year": 58.576403148950945,
-    "mission_drag_m_s": 175.72920944685285,
-    "impulsive_600_to_50_perigee_m_s": 156.9054127923
+    "electric_dv_m_s": 864.3537795316134,
+    "chemical_dv_after_xenon_m_s": 221.5054558422408,
+    "drag_m_s_year": 57.844807772402845,
+    "mission_drag_m_s": 173.53442331720854,
+    "impulsive_circular_to_50_perigee_m_s": 156.9054127923
   },
   "structure": {
-    "axial_force_n": 1395682.4279999998,
-    "lateral_force_n": 465227.47599999997,
+    "axial_force_n": 1413334.3979999998,
+    "lateral_force_n": 471111.46599999996,
     "two_pack_diagonal_m": 7.0710678118654755,
     "pack_radial_clearance_m": 0.16446609406726242,
     "launcher_radial_allowance_m": 0.2999999999999998,

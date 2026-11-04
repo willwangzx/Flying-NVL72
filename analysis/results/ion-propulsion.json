@@ -1,0 +1,47 @@
+{
+  "reference": "NASA PM1 (2008): 0.237 N, 6.9 kW, 4190 s per head; integration allocations are independent",
+  "cases": {
+    "1_active": {
+      "thrust_n": 0.237,
+      "useful_thrust_n": 0.22515,
+      "bus_power_kw": 7.787791644058601,
+      "mass_flow_mg_s": 5.767845882476586,
+      "on_time_acceleration_m_s2": 9.373438800999168e-06,
+      "available_orbit_fraction": 0.5330293340711697,
+      "average_useful_thrust_n": 0.12001155456612385,
+      "drag_force_n": 0.04402845218562618,
+      "required_orbit_fraction_for_drag": 0.1955516419525924,
+      "max_density_kg_m3_at_assumed_duty": 2.7257727357788795e-12,
+      "one_m_s_on_hours_initial_mass": 29.634564611246823,
+      "one_m_s_calendar_hours_without_drag": 55.59649857336001,
+      "one_m_s_calendar_hours_after_drag": 87.81192150867953,
+      "100_m_s_on_days_initial_mass": 123.47735254686177,
+      "100_m_s_calendar_days_without_drag": 231.65207738900006,
+      "annual_xenon_for_reference_drag_kg": 35.5941873005176,
+      "xenon_inventory_full_power_firing_hours": 24079.85437177684,
+      "non_jet_power_kw_estimate": 2.9186428193086007,
+      "note": "Constant initial mass and constant environment screening. Direction/duty factors are unverified. Spacecraft thermal budget conservatively counts all EP electrical input as heat."
+    },
+    "2_active": {
+      "thrust_n": 0.474,
+      "useful_thrust_n": 0.4503,
+      "bus_power_kw": 15.275583288117202,
+      "mass_flow_mg_s": 11.535691764953173,
+      "on_time_acceleration_m_s2": 1.8746877601998335e-05,
+      "available_orbit_fraction": 0.5330293340711697,
+      "average_useful_thrust_n": 0.2400231091322477,
+      "drag_force_n": 0.04402845218562618,
+      "required_orbit_fraction_for_drag": 0.0977758209762962,
+      "max_density_kg_m3_at_assumed_duty": 5.451545471557759e-12,
+      "one_m_s_on_hours_initial_mass": 14.817282305623412,
+      "one_m_s_calendar_hours_without_drag": 27.798249286680004,
+      "one_m_s_calendar_hours_after_drag": 34.04287813845547,
+      "100_m_s_on_days_initial_mass": 61.73867627343088,
+      "100_m_s_calendar_days_without_drag": 115.82603869450003,
+      "annual_xenon_for_reference_drag_kg": 35.5941873005176,
+      "xenon_inventory_full_power_firing_hours": 12039.92718588842,
+      "non_jet_power_kw_estimate": 5.5372856386172025,
+      "note": "Constant initial mass and constant environment screening. Direction/duty factors are unverified. Spacecraft thermal budget conservatively counts all EP electrical input as heat."
+    }
+  }
+}

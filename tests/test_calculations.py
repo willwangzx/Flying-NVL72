@@ -7,7 +7,7 @@ import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'analysis'))
-from calculate import evaluate, scenario_results
+from calculate import evaluate, scenario_results, ion_trade
 
 
 class Budgets(unittest.TestCase):
@@ -17,7 +17,7 @@ class Budgets(unittest.TestCase):
 
     def test_baseline_and_mass_sum(self):
         self.assertTrue(all(self.r['checks'].values()))
-        self.assertAlmostEqual(self.r['mass']['wet_kg'],23720)
+        self.assertAlmostEqual(self.r['mass']['wet_kg'],24020)
         self.assertAlmostEqual(self.r['mass']['dry_kg'],sum(self.r['mass']['items_kg'].values()))
         self.assertEqual(self.r['power']['nominal_bus_kw'],138)
         self.assertAlmostEqual(self.r['thermal']['capacity_kw'],207.084342,places=5)
@@ -46,7 +46,7 @@ class Budgets(unittest.TestCase):
         self.assertGreater(cases['radiator_wing_lost_100kw']['results']['thermal']['capacity_margin_fraction'],.1)
         self.assertNotIn('mass',cases['radiator_wing_lost']['results'])
         self.assertEqual(cases['cooler_inlet_fallback']['results']['thermal']['primary_inlet_c'],25)
-        self.assertAlmostEqual(cases['cooler_inlet_fallback']['results']['mass']['wet_kg'],24440)
+        self.assertAlmostEqual(cases['cooler_inlet_fallback']['results']['mass']['wet_kg'],24740)
 
     def test_eclipse_and_charger_boundaries(self):
         self.x['orbit']['eclipse_min']=0
@@ -72,15 +72,35 @@ class Budgets(unittest.TestCase):
         with self.assertRaises(ValueError):evaluate(self.x)
 
     def test_drag_and_rocket_equation(self):
-        # F≈0.044 N over a Julian year / 23.72 tonnes gives about 58.6 m/s.
-        self.assertAlmostEqual(self.r['propulsion']['drag_m_s_year'],58.576403,places=5)
-        self.assertAlmostEqual(self.r['propulsion']['electric_dv_m_s'],334.282775,places=5)
+        # F≈0.044 N over a Julian year / 24.02 tonnes gives about 57.8 m/s.
+        self.assertAlmostEqual(self.r['propulsion']['drag_m_s_year'],57.844808,places=5)
+        self.assertAlmostEqual(self.r['propulsion']['electric_dv_m_s'],864.353780,places=5)
         self.x['drag']['density_kg_m3']*=10
         self.assertAlmostEqual(evaluate(self.x)['propulsion']['drag_m_s_year'],10*self.r['propulsion']['drag_m_s_year'])
+
+    def test_ion_power_duty_and_drag(self):
+        trade=ion_trade(self.x)['cases']['2_active']
+        self.assertAlmostEqual(trade['thrust_n'],.474)
+        self.assertAlmostEqual(trade['bus_power_kw'],15.275583288)
+        self.assertGreater(trade['average_useful_thrust_n'],trade['drag_force_n'])
+        self.assertGreater(trade['one_m_s_calendar_hours_after_drag'],trade['one_m_s_calendar_hours_without_drag'])
+        self.x['drag']['density_kg_m3']*=10
+        self.assertIsNone(ion_trade(self.x)['cases']['2_active']['one_m_s_calendar_hours_after_drag'])
+
+    def test_burn_budget_and_invalid_engine_count(self):
+        self.x['propulsion']['operating_heads']=2
+        self.x['power']['compute_kw']=105
+        burn=evaluate(self.x)
+        self.assertTrue(all(burn['checks'].values()))
+        self.assertLess(burn['power']['nominal_bus_kw'],138)
+        self.assertGreater(burn['power']['ion_bus_kw'],13.8)
+        self.x['propulsion']['operating_heads']=4
+        with self.assertRaises(ValueError):evaluate(self.x)
 
     def test_checked_in_results(self):
         stored=json.loads((ROOT/'analysis/results/baseline.json').read_text())
         self.assertEqual(stored,self.r)
+        self.assertEqual(json.loads((ROOT/'analysis/results/ion-propulsion.json').read_text()),ion_trade(self.x))
         stored_cases=json.loads((ROOT/'analysis/results/scenarios.json').read_text())
         self.assertEqual(stored_cases,scenario_results(self.x))
 
